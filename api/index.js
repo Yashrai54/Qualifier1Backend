@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-    origin: "https://frontend-qualifier1-klknkh4yv-yash-rais-projects-74183a18.vercel.app",
+    origin: "https://frontend-qualifier1-29m0trvsm-yash-rais-projects-74183a18.vercel.app/",
     methods: "GET,POST,OPTIONS",
     allowedHeaders: "Content-Type"
 };
