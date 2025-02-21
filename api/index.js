@@ -1,7 +1,17 @@
 const express = require("express");
+const cors = require("cors");
+
 const app = express();
-app.use(express.json()); 
-app.use(cors());
+app.use(express.json());
+
+const corsOptions = {
+    origin: "https://frontend-qualifier1-klknkh4yv-yash-rais-projects-74183a18.vercel.app",
+    methods: "GET,POST,OPTIONS",
+    allowedHeaders: "Content-Type"
+};
+app.use(cors(corsOptions));
+
+app.options("/bfhl", cors(corsOptions)); // Handle preflight
 
 app.post("/bfhl", (req, res) => {
     const { data } = req.body;
@@ -17,7 +27,7 @@ app.post("/bfhl", (req, res) => {
     const alphabets = data.filter((item) => isNaN(item));
     const highestAlphabet = alphabets.length ? alphabets.sort().pop().toUpperCase() : null;
 
-    res.json({
+    res.status(200).json({
         is_success: true,
         user_id: "yash_rai_07022005",
         email: "22BCS16285@cuchd.in",
@@ -29,7 +39,7 @@ app.post("/bfhl", (req, res) => {
 });
 
 app.get("/bfhl", (req, res) => {
-    res.json({ operation_code: 1 });
+    res.status(200).json({ operation_code: 1 });
 });
 
 const PORT = process.env.PORT || 3000;
