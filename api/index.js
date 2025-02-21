@@ -11,7 +11,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.options("/bfhl", cors(corsOptions)); // Handle preflight
+app.options("/bfhl", cors(corsOptions)); 
 
 app.post("/bfhl", (req, res) => {
     const { data } = req.body;
