@@ -4,14 +4,21 @@ const cors = require("cors");
 const app = express();
 app.use(express.json());
 
-const corsOptions = {
-    origin: "https://frontend-qualifier1-qr3xnus9v-yash-rais-projects-74183a18.vercel.app/",
-    methods: "GET,POST,OPTIONS",
-    allowedHeaders: "Content-Type"
-};
-app.use(cors(corsOptions));
+// Define allowed frontend URLs
+const allowedOrigins = [
+    "https://frontend-qualifier1-klknkh4yv-yash-rais-projects-74183a18.vercel.app",
+    "https://frontend-qualifier1-29m0trvsm-yash-rais-projects-74183a18.vercel.app"
+];
 
-app.options("/bfhl", cors(corsOptions)); 
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("CORS policy blocked this request"));
+        }
+    }
+}));
 
 app.post("/bfhl", (req, res) => {
     const { data } = req.body;
@@ -27,7 +34,7 @@ app.post("/bfhl", (req, res) => {
     const alphabets = data.filter((item) => isNaN(item));
     const highestAlphabet = alphabets.length ? alphabets.sort().pop().toUpperCase() : null;
 
-    res.status(200).json({
+    res.json({
         is_success: true,
         user_id: "yash_rai_07022005",
         email: "22BCS16285@cuchd.in",
@@ -39,7 +46,7 @@ app.post("/bfhl", (req, res) => {
 });
 
 app.get("/bfhl", (req, res) => {
-    res.status(200).json({ operation_code: 1 });
+    res.json({ operation_code: 1 });
 });
 
 const PORT = process.env.PORT || 3000;
